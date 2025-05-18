@@ -5,8 +5,8 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { signupSchema, SignupSchemaType } from '@/lib/validations/signupSchema';
 import InputField from './form/InputField';
 import { useState } from 'react';
-import axios from 'axios';
 import { useRouter } from 'next/navigation';
+import api from '@/lib/axios'; 
 
 export default function SignupForm() {
     const [loading, setLoading] = useState(false);
@@ -25,7 +25,7 @@ export default function SignupForm() {
     setLoading(true);
     setErrorMsg('');
     try {
-        const response = await axios.post('/api/auth/signup', {
+        const response = await api.post('/api/auth/signup', {
             name: data.name,
             email: data.email,
             password: data.password,
@@ -33,6 +33,7 @@ export default function SignupForm() {
 
           if (response.status === 201) {
             // User created, redirect to OTP verification page
+            console.log("response received")
             router.push(`/verify-otp?email=${data.email}`);
           }
     } catch (err : any) {
@@ -42,7 +43,7 @@ export default function SignupForm() {
             setErrorMsg('Something went wrong. Please try again.');
           }
     } finally {
-        router.push(`/verify-otp?email=${data.email}`); // for testing purpose only
+        // router.push(`/verify-otp?email=${data.email}`); // for testing purpose only
       setLoading(false);
     }
   };
