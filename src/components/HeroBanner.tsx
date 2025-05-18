@@ -25,7 +25,6 @@ export default function HeroBanner() {
           Shop like it’s your{" "}
           <span className="relative inline-block text-indigo-600">
             Papa ki Dukan
-            <span className="absolute -bottom-2 left-0 w-full h-2 bg-indigo-300 rounded-full mix-blend-multiply"></span>
           </span>
         </h1>
         <p className="text-lg md:text-xl text-gray-700 mb-10 max-w-lg mx-auto">

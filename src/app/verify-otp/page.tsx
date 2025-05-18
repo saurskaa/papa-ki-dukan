@@ -2,10 +2,12 @@
 
 import { useEffect, useRef, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import api from '@/lib/axios';
 
 export default function OtpVerificationPage() {
   const searchParams = useSearchParams();
+  const router = useRouter();
   const email = searchParams.get('email');
   const [otp, setOtp] = useState(Array(6).fill(''));
   const [error, setError] = useState('');
@@ -57,6 +59,7 @@ export default function OtpVerificationPage() {
       const res = await api.post('/api/auth/verify-otp', { email, otp: finalOtp });
       if (res.status === 200) {
         console.log('OTP verified');
+        router.push('/home');
       }
     } catch (err) {
       setError('Invalid OTP. Please try again.');
